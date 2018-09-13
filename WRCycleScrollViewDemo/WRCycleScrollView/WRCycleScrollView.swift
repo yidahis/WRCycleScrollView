@@ -31,7 +31,11 @@ open class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollP
             setupPageControl()
         }
     }
-    
+    open var outerPageControlCenter: CGPoint? {
+        didSet {
+            setupPageControl()
+        }
+    }
     /// 数据相关
     open var imgsType:ImgType = .SERVER
     open var localImgArray :[String]? {
