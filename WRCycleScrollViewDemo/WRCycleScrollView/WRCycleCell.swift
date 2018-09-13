@@ -15,7 +15,7 @@ open class WRCycleCell: UICollectionViewCell
     //=======================================================
     // MARK: 对外提供的属性
     //=======================================================
-    var imgSource:ImgSource = ImgSource.LOCAL(name: "placeholder")  {
+    open var imgSource:ImgSource = ImgSource.LOCAL(name: "placeholder")  {
         didSet {
             switch imgSource {
             case let .SERVER(url):
@@ -26,9 +26,9 @@ open class WRCycleCell: UICollectionViewCell
         }
     }
     
-    var placeholderImage: UIImage?
+    open var placeholderImage: UIImage?
     
-    var descText:String? {
+    open var descText:String? {
         didSet {
             descLabel.isHidden  = (descText == nil) ? true : false
             bottomView.isHidden = (descText == nil) ? true : false
@@ -42,46 +42,46 @@ open class WRCycleCell: UICollectionViewCell
         }
     }
     
-    var imageContentModel:UIViewContentMode = .scaleAspectFill {
+    open var imageContentModel:UIViewContentMode = .scaleAspectFill {
         didSet {
             imgView.contentMode = imageContentModel
         }
     }
     
-    var descLabelFont: UIFont = UIFont(name: "Helvetica-Bold", size: 18)! {
+    open var descLabelFont: UIFont = UIFont(name: "Helvetica-Bold", size: 18)! {
         didSet {
             descLabel.font = descLabelFont
         }
     }
-    var descLabelTextColor: UIColor = UIColor.white {
+    open var descLabelTextColor: UIColor = UIColor.white {
         didSet {
             descLabel.textColor = descLabelTextColor
         }
     }
-    var descLabelHeight: CGFloat = 60 {
+    open var descLabelHeight: CGFloat = 60 {
         didSet {
             descLabel.frame.size.height = descLabelHeight
         }
     }
-    var descLabelTextAlignment:NSTextAlignment = .left {
+    open var descLabelTextAlignment:NSTextAlignment = .left {
         didSet {
             descLabel.textAlignment = descLabelTextAlignment
         }
     }
     
-    var descLabelTop: CGFloat = 0 {
+    open var descLabelTop: CGFloat = 0 {
         didSet{
             setNeedsLayout()
         }
     }
     
-    var imageViewHeight: CGFloat?{
+    open var imageViewHeight: CGFloat?{
         didSet{
             setNeedsLayout()
         }
     }
     
-    var bottomViewBackgroundColor: UIColor = UIColor.black.withAlphaComponent(0.5) {
+    open var bottomViewBackgroundColor: UIColor = UIColor.black.withAlphaComponent(0.5) {
         didSet {
             bottomView.backgroundColor = bottomViewBackgroundColor
         }
