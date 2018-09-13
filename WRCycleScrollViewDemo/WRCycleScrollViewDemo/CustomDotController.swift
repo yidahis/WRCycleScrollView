@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WRCycleScrollView
 
 class CustomDotController: UIViewController
 {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WRCycleScrollView
 
 class SBController: UIViewController
 {
@@ -25,7 +26,7 @@ class SBController: UIViewController
                      "《琅琊榜2》为何没有胡歌？胡歌：我看过剧本，离开是种保护",
                      "阿米尔汗在印度的影响力，我国的哪位影视明星能与之齐名呢？"]
 
-        cycleScrollView.delegate = self
+//        cycleScrollView.delegate = self
         view.addSubview(cycleScrollView)
         cycleScrollView.localImgArray = localImages
         cycleScrollView.descTextArray = descs

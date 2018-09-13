@@ -12,10 +12,17 @@
 # 修改过得第三方库
 
 
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 target 'WRCycleScrollViewDemo' do
+    
+    #swift
+#    pod 'Kingfisher'
+
+end
+
+target 'WRCycleScrollView' do
     
     #swift
     pod 'Kingfisher'

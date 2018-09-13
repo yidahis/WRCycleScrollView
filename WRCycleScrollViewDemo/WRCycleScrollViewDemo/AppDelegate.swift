@@ -38,10 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 
     func setNavBarAppearence()
     {
-        UIColor.defaultStatusBarStyle = .lightContent
-        UIColor.defaultNavBarTintColor = UIColor.white
-        UIColor.defaultNavBarBarTintColor = MainNavBarColor
-        UIColor.defaultNavBarTitleColor = UIColor.white
+//        UIColor.defaultStatusBarStyle = .lightContent
+//        UIColor.defaultNavBarTintColor = UIColor.white
+//        UIColor.defaultNavBarBarTintColor = MainNavBarColor
+//        UIColor.defaultNavBarTitleColor = UIColor.white
     }
 }
 

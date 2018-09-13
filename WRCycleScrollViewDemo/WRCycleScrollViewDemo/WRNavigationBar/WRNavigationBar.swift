@@ -121,7 +121,7 @@ extension UINavigationBar
                 let str = ("wr_" + selector.description)
                 let originalMethod = class_getInstanceMethod(self, selector)
                 let swizzledMethod = class_getInstanceMethod(self, Selector(str))
-                method_exchangeImplementations(originalMethod, swizzledMethod)
+                method_exchangeImplementations(originalMethod!, swizzledMethod!)
             }
         }
     }
@@ -191,12 +191,12 @@ extension UINavigationController
     fileprivate func setNeedsNavigationBarUpdate(titleColor: UIColor)
     {
         guard let titleTextAttributes = navigationBar.titleTextAttributes else {
-            navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:titleColor]
+            navigationBar.titleTextAttributes = [kCTForegroundColorAttributeName:titleColor]
             return
         }
         
         var newTitleTextAttributes = titleTextAttributes
-        newTitleTextAttributes.updateValue(titleColor, forKey: NSForegroundColorAttributeName)
+        newTitleTextAttributes.updateValue(titleColor, forKey: kCTForegroundColorAttributeName)
         navigationBar.titleTextAttributes = newTitleTextAttributes
     }
     
@@ -246,7 +246,7 @@ extension UINavigationController
                 let str = ("wr_" + selector.description).replacingOccurrences(of: "__", with: "_")
                 let originalMethod = class_getInstanceMethod(self, selector)
                 let swizzledMethod = class_getInstanceMethod(self, Selector(str))
-                method_exchangeImplementations(originalMethod, swizzledMethod)
+                method_exchangeImplementations(originalMethod!, swizzledMethod)
             }
         }
     }
@@ -570,7 +570,7 @@ extension UIViewController
             
             if customNavBar.isKind(of: UINavigationBar.self) {
                 let navBar = customNavBar as! UINavigationBar
-                navBar.titleTextAttributes = [NSForegroundColorAttributeName:newValue]
+                navBar.titleTextAttributes = [kCTForegroundColorAttributeName:newValue]
             }
             else
             {
@@ -643,7 +643,7 @@ extension UIViewController
                 let newSelectorStr = "wr_" + selector.description
                 let originalMethod = class_getInstanceMethod(self, selector)
                 let swizzledMethod = class_getInstanceMethod(self, Selector(newSelectorStr))
-                method_exchangeImplementations(originalMethod, swizzledMethod)
+                method_exchangeImplementations(originalMethod!, swizzledMethod)
             }
         }
     }

@@ -8,6 +8,7 @@
 //  Github地址：https://github.com/wangrui460/WRCycleScrollView
 
 import UIKit
+import WRCycleScrollView
 
 class NoPageControlController: UIViewController
 {

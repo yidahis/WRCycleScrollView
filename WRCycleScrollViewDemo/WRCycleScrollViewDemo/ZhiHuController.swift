@@ -8,6 +8,7 @@
 //  Github地址：https://github.com/wangrui460/WRNavigationBar_swift
 
 import UIKit
+import WRCycleScrollView
 
 private let NAVBAR_COLORCHANGE_POINT:CGFloat = -80
 private let IMAGE_HEIGHT:CGFloat = 240
@@ -47,9 +48,9 @@ class ZhiHuController: UIViewController
         tableView.addSubview(cycleScrollView)
         view.addSubview(tableView)
         
-        navBarBarTintColor = MainNavBarColor
-        navBarBackgroundAlpha = 0
-        navBarTintColor = .white
+//        navBarBarTintColor = MainNavBarColor
+//        navBarBackgroundAlpha = 0
+//        navBarTintColor = .white
     }
     
     deinit {
@@ -68,11 +69,11 @@ extension ZhiHuController
         if (offsetY > NAVBAR_COLORCHANGE_POINT)
         {
             let alpha = (offsetY - NAVBAR_COLORCHANGE_POINT) / CGFloat(kNavBarBottom)
-            navBarBackgroundAlpha = alpha
+//            navBarBackgroundAlpha = alpha
         }
         else
         {
-            navBarBackgroundAlpha = 0
+//            navBarBackgroundAlpha = 0
         }
         
         // 限制下拉距离
