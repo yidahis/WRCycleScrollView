@@ -10,7 +10,7 @@
 import UIKit
 
 
-@objc protocol WRCycleScrollViewDelegate
+@objc public protocol WRCycleScrollViewDelegate
 {
     /// 点击图片回调
     @objc optional func cycleScrollViewDidSelect(at index:Int, cycleScrollView:WRCycleScrollView)
@@ -18,23 +18,27 @@ import UIKit
     @objc optional func cycleScrollViewDidScroll(to index:Int, cycleScrollView:WRCycleScrollView)
 }
 
-class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtocol
+open class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtocol
 {
     
     //=======================================================
     // MARK: 对外提供的属性
     //=======================================================
-    weak var delegate:WRCycleScrollViewDelegate?
+    open weak var delegate:WRCycleScrollViewDelegate?
     
-    var outerPageControlCenter: CGPoint? {
+    open var outerPageControlFrame:CGRect? {
         didSet {
             setupPageControl()
         }
     }
-    
+    open var outerPageControlCenter: CGPoint? {
+        didSet {
+            setupPageControl()
+        }
+    }
     /// 数据相关
-    var imgsType:ImgType = .SERVER
-    var localImgArray :[String]? {
+    open var imgsType:ImgType = .SERVER
+    open var localImgArray :[String]? {
         didSet {
             if let local = localImgArray {
                 proxy = Proxy(type: .LOCAL, array: local)
@@ -42,7 +46,7 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
             }
         }
     }
-    var serverImgArray:[String]? {
+    open var serverImgArray:[String]? {
         didSet {
             if let server = serverImgArray {
                 proxy = Proxy(type: .SERVER, array: server)
@@ -50,27 +54,27 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
             }
         }
     }
-    var descTextArray :[String]?
-    var placeholderImage: UIImage?
+    open var descTextArray :[String]?
+    open var placeholderImage: UIImage?
     
     /// WRCycleCell相关
-    var imageContentModel: UIViewContentMode?
-    var descLabelFont: UIFont?
-    var descLabelTextColor: UIColor?
-    var descLabelHeight: CGFloat?
-    var descLabelTextAlignment:NSTextAlignment?
-    var bottomViewBackgroundColor: UIColor?
-    var descLabelTop: CGFloat = 0
-    var imageViewHeight: CGFloat?
+    open var imageContentModel: UIViewContentMode?
+    open var descLabelFont: UIFont?
+    open var descLabelTextColor: UIColor?
+    open var descLabelHeight: CGFloat?
+    open var descLabelTextAlignment:NSTextAlignment?
+    open var bottomViewBackgroundColor: UIColor?
+    open var descLabelTop: CGFloat = 0
+    open var imageViewHeight: CGFloat?
     
     /// 主要功能需求相关
-    override var frame: CGRect {
+    open override var frame: CGRect {
         didSet {
             flowLayout?.itemSize = frame.size
             collectionView?.frame = bounds
         }
     }
-    var isAutoScroll:Bool = true {
+    open var isAutoScroll:Bool = true {
         didSet {
             timer?.invalidate()
             timer = nil
@@ -79,41 +83,41 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
             }
         }
     }
-    var isEndlessScroll:Bool = true {
+    open var isEndlessScroll:Bool = true {
         didSet {
             reloadData()
         }
     }
-    var autoScrollInterval: Double = 1.5
+    open var autoScrollInterval: Double = 1.5
     
     /// pageControl相关
-    var pageControlAliment: PageControlAliment = .CenterBottom
-    var defaultPageDotImage: UIImage? {
+    open var pageControlAliment: PageControlAliment = .CenterBottom
+    open var defaultPageDotImage: UIImage? {
         didSet {
             setupPageControl()
         }
     }
-    var currentPageDotImage: UIImage? {
+    open var currentPageDotImage: UIImage? {
         didSet {
             setupPageControl()
         }
     }
-    var pageControlPointSpace: CGFloat = 15 {
+    open var pageControlPointSpace: CGFloat = 15 {
         didSet {
             setupPageControl()
         }
     }
-    var showPageControl: Bool = true {
+    open var showPageControl: Bool = true {
         didSet {
             setupPageControl()
         }
     }
-    var currentDotColor: UIColor = UIColor.orange {
+    open var currentDotColor: UIColor = UIColor.orange {
         didSet {
             self.pageControl?.currentPageIndicatorTintColor = currentDotColor
         }
     }
-    var otherDotColor: UIColor = UIColor.gray {
+    open var otherDotColor: UIColor = UIColor.gray {
         didSet {
             self.pageControl?.pageIndicatorTintColor = otherDotColor
         }
@@ -122,7 +126,7 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
     //=======================================================
     // MARK: 对外提供的方法
     //=======================================================
-    func reloadData()
+    open func reloadData()
     {
         timer?.invalidate()
         timer = nil
@@ -140,8 +144,8 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
         }
         
         if showPageControl == true {
-            if let center = outerPageControlCenter {
-                self.relayoutPageControl(pageControl: pageControl, center: center)
+            if let outFrame = outerPageControlFrame {
+                self.relayoutPageControl(pageControl: pageControl, center: outFrame.origin)
             } else {
                 self.relayoutPageControl(pageControl: pageControl)
             }
@@ -198,7 +202,7 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
     ///   - type:  ImagesType                         default:Server
     ///   - imgs:  localImgArray / serverImgArray     default:nil
     ///   - descs: descTextArray                      default:nil
-    init(frame: CGRect, type:ImgType = .SERVER, imgs:[String]? = nil, descs:[String]? = nil, defaultDotImage:UIImage? = nil, currentDotImage:UIImage? = nil, placeholderImage:UIImage? = nil)
+    public init(frame: CGRect, type:ImgType = .SERVER, imgs:[String]? = nil, descs:[String]? = nil, defaultDotImage:UIImage? = nil, currentDotImage:UIImage? = nil, placeholderImage:UIImage? = nil)
     {
         super.init(frame: frame)
         setupCollectionView()
@@ -223,7 +227,7 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
         reloadData()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         // 支持StoryBoard创建
         super.init(coder: aDecoder)
         self.setupCollectionView()
@@ -237,7 +241,7 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
     //=======================================================
     // MARK: 内部方法（layoutSubviews、willMove）
     //=======================================================
-    override func layoutSubviews()
+    override open func layoutSubviews()
     {
         super.layoutSubviews()
         // 解决WRCycleCell自动偏移问题
@@ -251,15 +255,15 @@ class WRCycleScrollView: UIView, PageControlAlimentProtocol, EndlessScrollProtoc
         }
         
         if showPageControl == true {
-            if let center = outerPageControlCenter {
-                self.relayoutPageControl(pageControl: pageControl, center: center)
+            if let outFrame = outerPageControlFrame {
+                self.relayoutPageControl(pageControl: pageControl, center: outFrame.origin)
             } else {
                 self.relayoutPageControl(pageControl: pageControl)
             }
         }
     }
     
-    override func willMove(toSuperview newSuperview: UIView?)
+    override open func willMove(toSuperview newSuperview: UIView?)
     {   // 解决定时器导致的循环引用
         super.willMove(toSuperview: newSuperview)
         // 展现的时候newSuper不为nil，离开的时候newSuper为nil
@@ -289,22 +293,22 @@ extension WRCycleScrollView
         }
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         timer?.invalidate()
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
     {
         if isAutoScroll == true {
             setupTimer()
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         scrollViewDidEndScrollingAnimation(scrollView)
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
     {
         guard canChangeCycleCell else {
             return
@@ -316,7 +320,7 @@ extension WRCycleScrollView
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    public func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         guard canChangeCycleCell else {
             return
@@ -343,7 +347,7 @@ extension WRCycleScrollView
             pageControl?.isUserInteractionEnabled = false
             pageControl?.pointSpace = pageControlPointSpace
             
-            if let _ = outerPageControlCenter {
+            if let _ = outerPageControlFrame {
                 superview?.addSubview(pageControl!)
             } else {
                 addSubview(pageControl!)
